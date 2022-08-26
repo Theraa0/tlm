@@ -5,8 +5,8 @@
 # - correct number of inputs
 # - wether the input number is <= the length of the file
 # - for 'swap' fix substrings
-# flags (Mainly to prevent recursion)
-# Live Preview Mode
+# - 'silent' flag
+# - interactions with sublists
 
 # CONFIG
 path="/home/thera/projects/theralist/saves"
@@ -31,6 +31,14 @@ layer2=${inputArray[$offset+1]}
 layer3=${inputArray[$offset+2]}
 layer4=${inputArray[$offset+3]}
 
+for (( i=0; i<$offset; i++ ))
+do
+	if [[ "${inputArray[$i]}" == "--silent" ]]
+	then
+		silent=True
+	fi
+done
+
 # Function for sending the help message
 function sendHelp {
 	echo -e "tlm - Thera's List manager [version 1.¼]"
@@ -40,11 +48,16 @@ function sendHelp {
 	echo -e "	          you can use '=>' to point to a list when adding"
 }
 
+# Function to only echo when silent flag is not set
+function sEcho {
+	if ! [[ $silent ]] ; then echo -e $@; fi
+}
+
 # Commands for managing the different lists
 function interact {
 case $layer1 in
 	"")
-		echo "invalid use of command"
+		sEcho "invalid use of command"
 		sendHelp
 		;;
 	# Managing
@@ -52,29 +65,35 @@ case $layer1 in
 		case $layer2 in
 			add)
 				touch $path/$layer3
-				echo "created list: $layer3"
+				sEcho "created list: $layer3"
 				;;
 			remove)
-				i=5
-				echo -n "Remove list? [y/N] $i"
-				while [ true ] ; do
-					echo -e -n "\e[D$i"
-					read -s -t 1 -n 1 k<&1
-					((i=i-1))
-					if [[ "$i" == "0" ]] || [[ "$k" == "n" ]] || [[ "$k" == "N" ]]
-					then
-						echo -e -n "\e[2K\e[0G"
-						echo "No confirmation recieved, exiting."
-						exit
-					elif [[ "$k" == "y" ]] || [[ "$k" == "Y" ]]
-					then
-						rm $path/$layer3 > /dev/null 2>&1
-						rm $path/$layer3.done > /dev/null 2>&1
-						echo -e -n "\e[2K\e[0G"
-						echo "removed list: $layer3"
-						exit
-					fi
-				done
+				if [[ $silent ]]
+				then
+					rm $path/$layer3 > /dev/null 2>&1
+					rm $path/$layer3.done > /dev/null 2>&1
+				else
+					i=5
+					echo -n "Remove list? [y/N] $i"
+					while [ true ] ; do
+						echo -e -n "\e[D$i"
+						read -s -t 1 -n 1 k<&1
+						((i=i-1))
+						if [[ "$i" == "0" ]] || [[ "$k" == "n" ]] || [[ "$k" == "N" ]]
+						then
+							echo -e -n "\e[2K\e[0G"
+							echo "No confirmation recieved, exiting."
+							exit
+						elif [[ "$k" == "y" ]] || [[ "$k" == "Y" ]]
+						then
+							rm $path/$layer3 > /dev/null 2>&1
+							rm $path/$layer3.done > /dev/null 2>&1
+							echo -e -n "\e[2K\e[0G"
+							echo "removed list: $layer3"
+							exit
+						fi
+					done
+				fi
 				;;
 			list)
 				pathContent=("$(ls $path)")
@@ -85,7 +104,7 @@ case $layer1 in
 				done
 				;;
 			*)
-				echo "invalid argument"
+				sEcho "invalid argument"
 				;;
 		esac
 		;;
@@ -101,24 +120,19 @@ case $layer1 in
 		subject2=$layer4
 		if ! test -f "$path/$list";
 		then
-			if [[ "$list" == "heute" ]]
-			then
-				echo "*vibe*"
-			else
-				echo "List: $list does not exist"
-			fi
+			sEcho "List: $list does not exist"
 			exit
 		fi
 
 		case $commando in
 			add)
-				echo "$subject" >> $path/$list			#Append subject to list
-				echo "added \"$subject\" to $list"	#Feedback
+				echo "$subject" >> $path/$list																#Append subject to list
+				sEcho "added \"$subject\" to $list"														#Feedback
 				;;
 			done)
-				sed -n "$subject"p $path/$list >> $path/$list.done	#Add subject to list.done
-				sed -i $subject'd' $path/$list											#Remove subject
-				echo "No.$subject from $list is done"									#Feedback
+				sed -n "$subject"p $path/$list >> $path/$list.done						#Add subject to list.done
+				sed -i $subject'd' $path/$list																#Remove subject
+				sEcho "No.$subject from $list is done"												#Feedback
 				;;
 			list)
 				norecursive=False																							#Check wether the "--no-recursive" Flag is set
@@ -147,8 +161,8 @@ case $layer1 in
 				done
 				;;
 			remove)
-				sed -i $subject'd' $path/$list					#Remove the line
-				echo "Removed No.$subject from $list"		#Feedback
+				sed -i $subject'd' $path/$list																#Remove the line
+				sEcho "Removed No.$subject from $list"												#Feedback
 				;;
 			replace)
 				echo "Not yet implemented"	#Feedback
@@ -162,7 +176,7 @@ case $layer1 in
 				fi
 				cat $path/$list | sed -r "$subject{:a;N;$subject2!ba;s/([^\n]*)(\n?.*\n)(.*)/\3\2\1/}" > $path/$list.swap		#Swap lines using sed and echo them into a new file
 				mv $path/$list.swap $path/$list																																							#Move the new file over the old file
-				echo "Swapped No.$subject and No.$subject2 from $list"																											#Feedback
+				sEcho "Swapped No.$subject and No.$subject2 from $list"																											#Feedback
 				exit
 				;;
 			esac
