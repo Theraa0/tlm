@@ -5,7 +5,6 @@
 # - correct number of inputs
 # - wether the input number is <= the length of the file
 # - for 'swap' fix substrings
-# - 'silent' flag
 # - interactions with sublists
 
 # CONFIG
