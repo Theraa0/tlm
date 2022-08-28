@@ -9,7 +9,7 @@
 # - interactions with sublists
 
 # CONFIG
-path="/home/thera/projects/theralist/saves"
+path="/home/thera/Documents/Lists"
 
 # Handle the input parameters
 # offset is the number of modifiers to check
@@ -112,7 +112,6 @@ case $layer1 in
 	help)
 		sendHelp
 		;;
-
 	*)
 		list=$layer1
 		commando=$layer2
@@ -165,7 +164,9 @@ case $layer1 in
 				sEcho "Removed No.$subject from $list"												#Feedback
 				;;
 			replace)
-				echo "Not yet implemented"	#Feedback
+				sed -i "$subject d" $path/$list
+				sed -i "$subject i $subject2" $path/$list
+				sEcho "Changed No.$subject from $list to $subject2"
 				;;
 			swap)
 				if (( $subject > $subject2 ))																																								#The larger number always has to be subject2
@@ -178,6 +179,9 @@ case $layer1 in
 				mv $path/$list.swap $path/$list																																							#Move the new file over the old file
 				sEcho "Swapped No.$subject and No.$subject2 from $list"																											#Feedback
 				exit
+				;;
+			medit)
+				$VISUAL $path/$list
 				;;
 			esac
 		;;
