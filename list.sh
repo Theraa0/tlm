@@ -6,6 +6,7 @@
 # - wether the input number is <= the length of the file
 # - for 'swap' fix substrings
 # - interactions with sublists
+# - reverse listing
 
 # CONFIG
 path="/home/thera/Documents/Lists"
@@ -151,7 +152,7 @@ case $layer1 in
 						echo -n "$line" | sed 's/=>.*//' && echo ": ($sublist)" 	# Reformat for looks
 						if [ $norecursive == False ]															#If "--no-recursive" Flag is not set do:
 						then
-							tlm --no-recursive $sublist list | sed -ne 's/.*/  &/p' #List the sublist and add inset per layer
+							tlm --no-recursive $sublist list | sed -ne 's/.*/  &/p' #List the sublist with --no-recursive and add inset per layer
 						fi
 					else
 						echo $line																								#Echo the line
@@ -165,7 +166,7 @@ case $layer1 in
 			replace)
 				sed -i "$subject d" $path/$list
 				sed -i "$subject i $subject2" $path/$list
-				sEcho "Changed No.$subject from $list to $subject2"
+				sEcho "Changed No.$subject in $list to $subject2"
 				;;
 			swap)
 				if (( $subject > $subject2 ))																																								#The larger number always has to be subject2
@@ -179,7 +180,7 @@ case $layer1 in
 				sEcho "Swapped No.$subject and No.$subject2 from $list"																											#Feedback
 				exit
 				;;
-			medit)
+			vedit)
 				$VISUAL $path/$list
 				;;
 			esac
