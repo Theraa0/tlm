@@ -10,14 +10,9 @@
   <p align="center">
     A small bash script to easily manage different lists from the command line.
     <br />
-    <a href="https://github.com/Theraa0/tlm"><strong>Explore the docs »</strong></a>
-    <br />
-    <br />
-    <a href="https://github.com/github_username/repo_name">View Demo</a>
+    <a href="https://github.com/Theraa0/tlm/issues">Report Bug</a>
     ·
-    <a href="https://github.com/github_username/repo_name/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/github_username/repo_name/issues">Request Feature</a>
+    <a href="https://github.com/Theraa0/tlm/issues">Request Feature</a>
   </p>
 </div>
 
@@ -85,7 +80,7 @@ tlm help
 - [ ] Reverse listing
 - [ ] Interactios with sublists
 
-See the [open issues](https://github.com/github_username/repo_name/issues) for a full list of proposed features (and known issues).
+See the [open issues](https://github.com/Theraa0/tlm/issues) for a full list of proposed features (and known issues).
 - for 'swap' fix substrings
 
 ## Contributing
