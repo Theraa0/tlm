@@ -1,12 +1,5 @@
 #!/bin/bash
 # Currently not allowed list names: "help", "manage", ("*.done") which works for now but probably wont with the restore function in place, ""
-# TODO:
-# check if the given arguments are valid
-# - correct number of inputs
-# - wether the input number is <= the length of the file
-# - for 'swap' fix substrings
-# - interactions with sublists
-# - reverse listing
 
 # CONFIG
 path="/home/thera/Documents/Lists"
