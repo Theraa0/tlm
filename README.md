@@ -5,50 +5,26 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Thera's List Manager</h3>
+## Thera's List Manager
 
   <p align="center">
-    A small bash script to easily manage different lists from the command line.
+    A small bash script to easily manage different lists from the command line, written in Bash.
     <br />
-    <a href="https://github.com/Theraa0/tlm/issues">Report Bug</a>
-    ·
-    <a href="https://github.com/Theraa0/tlm/issues">Request Feature</a>
+    <br />
+    <a href="https://github.com/Theraa0/tlm/stargazers">
+		<img alt="Stars" src="https://img.shields.io/github/stars/Theraa0/tlm?style=for-the-badge&logo=starship&color=C9CBFF&logoColor=D9E0EE&labelColor=302D41"></a>
+	<a href="https://github.com/Theraa0/tlm/issues">
+		<img alt="Issues" src="https://img.shields.io/github/issues/Theraa0/tlm?style=for-the-badge&logo=bilibili&color=F5E0DC&logoColor=D9E0EE&labelColor=302D41"></a>
+	<a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ">
+		<img alt="Repo Size" src="https://img.shields.io/github/repo-size/Theraa0/tlm?color=%23DDB6F2&label=SIZE&logo=artifacthub&style=for-the-badge&logoColor=D9E0EE&labelColor=302D41"/></a>
   </p>
 </div>
 
 
-<details>
-  <summary>Table of Contents</summary>
-  <ol>
-    <li>
-      <a href="#about-the-project">About The Project</a>
-    </li>
-    <li>
-      <a href="#getting-started">Getting Started</a>
-      <ul>
-        <li><a href="#installation">Installation</a></li>
-        <li><a href="#usage">Usage</a></li>
-      </ul>
-    </li>
-    <li><a href="#roadmap">Roadmap</a></li>
-    <li><a href="#contributing">Contributing</a></li>
-  </ol>
-</details>
-
-
-
-## About The Project
-
-
-### Built With
-
-[![Bash][Bash.js]][Bash-url]
-
-
 <!-- GETTING STARTED -->
-## Getting Started
+### Getting Started
 
-### Installation
+#### Installation
 
 1. Clone the repo
    ```sh
@@ -63,7 +39,7 @@
 
 
 
-### Usage
+#### Usage
 
 Instructions on how to use this program are available via the help command
 ```sh
@@ -72,7 +48,7 @@ tlm help
 
 
 
-## Roadmap
+### Roadmap
 - [ ] Indentations
 - [ ] Input validations
 	- [ ] Detect error
@@ -83,13 +59,6 @@ tlm help
 See the [open issues](https://github.com/Theraa0/tlm/issues) for a full list of proposed features (and known issues).
 - for 'swap' fix substrings
 
-## Contributing
+### Contributing
 
 This is currently only a personal project, contributions are welcome but I won't include things I dont see fit.
-
-
-
-<!-- MARKDOWN LINKS & IMAGES -->
-<!-- https://www.markdownguide.org/basic-syntax/#reference-style-links -->
-[Bash.js]: https://img.shields.io/badge/Bash-DD0031?style=for-the-badge&logo=gnubash&logoColor=white
-[Bash-url]: https://www.gnu.org/software/bash/
