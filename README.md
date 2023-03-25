@@ -56,9 +56,6 @@ tlm help
 - [ ] Reverse listing
 - [ ] Interactios with sublists
 
-See the [open issues](https://github.com/Theraa0/tlm/issues) for a full list of proposed features (and known issues).
+### Issues
+See the [open issues](https://github.com/Theraa0/tlm/issues) for a full list of issues.
 - for 'swap' fix substrings
-
-### Contributing
-
-This is currently only a personal project, contributions are welcome but I won't include things I dont see fit.

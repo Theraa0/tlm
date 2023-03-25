@@ -39,11 +39,11 @@ done
 
 # Function for sending the help message
 function sendHelp {
-	echo -e "tlm - Thera's List manager [version 1.¼]"
+	echo -e "tlm - Thera's List manager [version 1.?]"
 	echo -e "tlm is a bash script for creating and managing different lists, stored in a simple text file\nFor more detailed documentations, check the github page"
-	echo -e "Usage: 	tlm [list] [command] [subject]\n	tlm help\n	tlm manage [add, remove, list]\n	------"
-	echo -e "	[list] is the custom list\n	[command] is 'add', 'done', 'list', 'remove', 'replace' or 'swap'\n	[subject] is either the text to add or the needed element number"
-	echo -e "	          you can use '=>' to point to a list when adding"
+	echo -e "Usage: 	tlm [list] [command] [input]\n	tlm help\n	tlm manage [add, remove, list]\n	------"
+	echo -e "	[list] is the custom list\n	[command] is 'add', 'done', 'list', 'remove', 'replace' or 'swap'\n	[input] is either the text to add or the needed element number"
+	echo -e "	          you can use '=>list' to add a list as an entry"
 }
 
 # Function to only echo when silent flag is not set
@@ -113,8 +113,8 @@ case $layer1 in
 	*)
 		list=$layer1
 		commando=$layer2
-		subject=$layer3
-		subject2=$layer4
+		input=$layer3
+		input2=$layer4
 		if ! test -f "$path/$list";
 		then
 			sEcho "List: $list does not exist"
@@ -123,13 +123,13 @@ case $layer1 in
 
 		case $commando in
 			add)
-				echo "$subject" >> $path/$list																#Append subject to list
-				sEcho "added \"$subject\" to $list"														#Feedback
+				echo "$input" >> $path/$list																#Append input to list
+				sEcho "added \"$input\" to $list"														#Feedback
 				;;
 			done)
-				sed -n "$subject"p $path/$list >> $path/$list.done						#Add subject to list.done
-				sed -i $subject'd' $path/$list																#Remove subject
-				sEcho "No.$subject from $list is done"												#Feedback
+				sed -n "$input"p $path/$list >> $path/$list.done						#Add input to list.done
+				sed -i $input'd' $path/$list																#Remove input
+				sEcho "No.$input from $list is done"												#Feedback
 				;;
 			list)
 				norecursive=False																							#Check wether the "--no-recursive" Flag is set
@@ -158,24 +158,36 @@ case $layer1 in
 				done
 				;;
 			remove)
-				sed -i $subject'd' $path/$list																#Remove the line
-				sEcho "Removed No.$subject from $list"												#Feedback
+				sed -i $input'd' $path/$list																#Remove the line
+				sEcho "Removed No.$input from $list"												#Feedback
 				;;
 			replace)
-				sed -i "$subject d" $path/$list
-				sed -i "$subject i $subject2" $path/$list
-				sEcho "Changed No.$subject in $list to $subject2"
+				sed -i "$input d" $path/$list
+				sed -i "$input i $input2" $path/$list
+				sEcho "Changed No.$input in $list to $input2"
 				;;
 			swap)
-				if (( $subject > $subject2 ))																																								#The larger number always has to be subject2
+				case $input in
+    				''|*[!0-9]*) echo "Input is not a number" && exit ;;
+				esac
+				case $input2 in
+    				''|*[!0-9]*) echo "Input is not a number" && exit ;;
+				esac
+				# $input2 should always be the larger number
+				if (( $input > $input2 ))																																								#The larger number always has to be input2
 				then
-					tempSubject=$subject
-					subject=$subject2
-					subject2=$tempSubject
+					tempinput=$input
+					input=$input2
+					input2=$tempinput
 				fi
-				cat $path/$list | sed -r "$subject{:a;N;$subject2!ba;s/([^\n]*)(\n?.*\n)(.*)/\3\2\1/}" > $path/$list.swap		#Swap lines using sed and echo them into a new file
+				if (( $input2 > $(wc -l < $path/$list) ))
+				then
+					echo "Input not in range"
+					exit
+				fi
+				cat $path/$list | sed -r "$input{:a;N;$input2!ba;s/([^\n]*)(\n?.*\n)(.*)/\3\2\1/}" > $path/$list.swap		#Swap lines using sed and echo them into a new file
 				mv $path/$list.swap $path/$list																																							#Move the new file over the old file
-				sEcho "Swapped No.$subject and No.$subject2 from $list"																											#Feedback
+				sEcho "Swapped No.$input and No.$input2 from $list"																											#Feedback
 				exit
 				;;
 			vedit)
