@@ -48,15 +48,13 @@ tlm help
 
 
 
-### TODO
+### Roadmap
 - [ ] Indentations
 - [ ] Input validations
 	- [ ] Detect error
-	- [ ] Show fitting help message/suggest correction
+	- [ ] Show fitting help message
 - [ ] Reverse listing
 - [ ] Interactios with sublists
-- [ ] Write better comments/documentation
-- [ ] configure list management to use flags instead of checking them as arguments
 
 ### Issues
 See the [open issues](https://github.com/Theraa0/tlm/issues) for a full list of issues.
