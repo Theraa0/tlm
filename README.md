@@ -55,6 +55,8 @@ tlm help
 	- [ ] Show fitting help message
 - [ ] Reverse listing
 - [ ] Interactios with sublists
+- [ ] switch list management to flags
+- [ ] write better documentation
 
 ### Issues
 See the [open issues](https://github.com/Theraa0/tlm/issues) for a full list of issues.
