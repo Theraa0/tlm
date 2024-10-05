@@ -71,16 +71,18 @@ case $layer1 in
 					rm $path/$layer3 > /dev/null 2>&1
 					rm $path/$layer3.done > /dev/null 2>&1
 				else
-					i=5
-					echo -n "Remove list? [y/N] $i"
-					while [ true ] ; do
-						echo -e -n "\e[D$i"
+					#i=5
+					#echo -n "Remove list? [y/N] $i"
+					echo -n "Remove list? [y/N]"
+					#while [ true ] ; do
+					#	echo -e -n "\e[D$i"
 						read -s -t 1 -n 1 k<&1
-						((i=i-1))
-						if [[ "$i" == "0" ]] || [[ "$k" == "n" ]] || [[ "$k" == "N" ]]
+					#	((i=i-1))
+					#	if [[ "$i" == "0" ]] || [[ "$k" == "n" ]] || [[ "$k" == "N" ]]
+						if [[ "$k" == "n" ]] || [[ "$k" == "N" ]]
 						then
 							echo -e -n "\e[2K\e[0G"
-							echo "No confirmation recieved, exiting."
+							echo "aborting"
 							exit
 						elif [[ "$k" == "y" ]] || [[ "$k" == "Y" ]]
 						then
