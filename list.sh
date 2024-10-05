@@ -92,7 +92,7 @@ case $layer1 in
 							echo "removed list: $layer3"
 							exit
 						fi
-					done
+					#done
 				fi
 				;;
 			list)
