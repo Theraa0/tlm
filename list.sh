@@ -73,13 +73,14 @@ case $layer1 in
 				else
 					#i=5
 					#echo -n "Remove list? [y/N] $i"
-					echo -n "Remove list? [y/N]"
+					#echo -n "Remove list? [y/N]"
 					#while [ true ] ; do
 					#	echo -e -n "\e[D$i"
-						read -s -t 1 -n 1 k<&1
+					#	read -s -t 1 -n 1 k<&1
 					#	((i=i-1))
 					#	if [[ "$i" == "0" ]] || [[ "$k" == "n" ]] || [[ "$k" == "N" ]]
-						if [[ "$k" == "n" ]] || [[ "$k" == "N" ]]
+					read -s -n 1 -p "Remove list? [y/N]" k
+						if [[ "$k" == "n" ]] || [[ "$k" == "N" ]] || [[ "$k" == "" ]]
 						then
 							echo -e -n "\e[2K\e[0G"
 							echo "aborting"
